@@ -43,7 +43,7 @@ const { isLoggedin } = require('./middleware.js');
 const { publicDecrypt } = require('crypto');
 const { createBrotliDecompress } = require('zlib');
 const { resolve } = require('path');
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo")(session)
 
 const dburl =process.env.DB_URL || 'mongodb://localhost:27017/Electromart'
 // ||'mongodb://localhost:27017/Electromart'
