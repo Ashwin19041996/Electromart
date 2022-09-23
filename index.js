@@ -564,9 +564,9 @@ app.use((err, req, res, next) => {
 
 
 
-
-app.listen(3000, () => {
-    console.log("listening port 3000 for electromart")
+const port=process.env.PORT || 3000
+app.listen(port, () => {
+    console.log(`listening port ${port} for electromart`)
 })
 
 
