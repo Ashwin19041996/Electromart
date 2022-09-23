@@ -26,7 +26,7 @@ const flash = require('connect-flash')
 const FormData = require('form-data');
 const { instance } = require('./RAZORPAY');
 const { createHmac } = require('node:crypto')
-const MongoStore = require("connect-mongo");
+
 
 
 
@@ -43,6 +43,7 @@ const { isLoggedin } = require('./middleware.js');
 const { publicDecrypt } = require('crypto');
 const { createBrotliDecompress } = require('zlib');
 const { resolve } = require('path');
+const MongoStore = require("connect-mongo");
 
 const dburl =process.env.DB_URL || 'mongodb://localhost:27017/Electromart'
 // ||'mongodb://localhost:27017/Electromart'
@@ -64,7 +65,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 
-app.set('trust proxy', 1);
+
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
 const store = MongoStore.create({
     mongoUrl: dburl,
