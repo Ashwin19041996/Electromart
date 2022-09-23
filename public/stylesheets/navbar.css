@@ -1,0 +1,40 @@
+#drop-btn{
+    height: 40px;
+   
+
+    
+}
+
+ #searchform{
+    display: block;
+} 
+
+#inputvalue{
+    display: block;
+}
+
+@media (max-width:375px){
+    #searchform{
+        width: 300px;
+        margin-left: 24px
+    }
+}
+
+@media (max-width:375px){
+    #drop-btn{
+        width:300px;
+    }
+    .dropdown-menu{
+     width: 300px;
+    }
+}
+
+/* #searchresults{
+    max-width: 500px;;
+    width: 95%;;
+    margin: 20px auto 0 auto;
+} */ 
+
+/* #drop-btn{
+    align-items: center;
+} */

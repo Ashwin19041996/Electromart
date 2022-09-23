@@ -1,0 +1,48 @@
+<% layout('layout/boilerplate.ejs') %> 
+<link rel="stylesheet" href="/stylesheets/orders.css">
+
+<div class="conatiner">
+  <div class="row">
+      <div class="col-sm-8 col-md-8 col-lg-8 offset-2 mt-5">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Items</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Date</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                
+                <% let list = order.length %>
+                <% for(let i=0;i<list;i++){ %>
+                  <% let items=order[i].Products.length%>
+                  
+                  <% for(let n=0;n<items;n++){ %>  
+                  <tr>
+                    <th scope="row"><a href="/electro/<%=order[i].Products[n].item._id%>"><img src="<%= order[i].Products[n].item.img[0].url %> " alt=""></a> </th>
+                    <td><%= order[i].Products[n].item.name %>  </td>
+                    <td> <%= order[i].Date %> </td>
+                   </tr>
+
+                <% } }%> 
+
+               
+                
+
+                
+
+            
+                
+                
+                
+                
+               
+                
+              </tbody>
+            </table>
+      </div>
+  </div>
+</div>
+

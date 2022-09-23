@@ -1,0 +1,146 @@
+<% layout('layout/boilerplate.ejs') %> 
+<link rel="stylesheet" href="/stylesheets/cart.css">
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="https://m.media-amazon.com/images/I/61dTAmZwydL._SL1500_.jpg" alt="">
+        </div>
+        <div class="col-md-8">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est a, voluptates facilis ea laborum autem rerum quod voluptas quisquam harum repellendus. Ipsum vel molestias tempore ab commodi sunt iste saepe.</p>
+            <h3>Price:</h3>
+            <button class="btn btn-success">Buy</button>
+            <button class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</div> -->
+
+
+<% if(product){ %> 
+<div class="conatiner">
+    <div class="row">
+        <div class="col-md-8 offset-2 mt-5">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Items</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                    <!-- <% for(let products of prod){ %>  -->
+                  <tr>
+                    <th scope="row"><img src="<%= products.item.img[0].url %>" alt=""> </th>
+                    <td><%= products.item.name %> </td>
+                    <td><button id="decrP" onclick="decrquantity('<%=products.item._id%>','<%=product.Author._id%>','<%=products.item.price%>')">-</button><span id="<%=products.item._id %>"><%= products.quantity %> </span><button onClick="changeqty('<%=products.item._id%>','<%=product.Author._id%>','<%= products.item.price %>')" id="incrP">+</button></td>
+                    
+                    <td><button class="btn btn-info" onclick=" deletefromcart('<%=product.Author._id%>','<%=products.item._id%>','<%=products.item.price%>')">Remove</button></td>
+                  
+                  </tr>
+                  <!-- <% } %>  -->
+                  <tr>
+                    <th><h2>Total Price:Rs <span id="total"><%=product.TotalPrice%> </span> </h2> <a href="/placeorder" class="btn btn-success">place Order</a></th>
+                  </tr>
+                 
+                  
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+<% }else{ %>
+  <h2>your cart is empty</h2>
+  <% } %>  
+
+<script>
+  function changeqty(id,authid,price){
+    const quantity=parseInt(document.getElementById(id).innerHTML)
+    const totalprice=parseInt(document.getElementById('total').innerHTML);
+
+   
+    axios.post('/changequantity', {
+    ProductId: id,
+    userId: authid,
+    quantity:quantity,
+    totalprice:totalprice,
+    price:parseInt(price)
+  },{ headers: {
+  'Content-Type': 'application/json'  
+  }})
+  .then(function (response) {
+    console.log(response);
+    console.log(response.status)
+    console.log(response.data.quantity)
+    document.getElementById(id).innerHTML=response.data.quantity+=1
+    document.getElementById('total').innerHTML=response.data.totalprice+=response.data.price
+    
+   
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+ 
+    console.log(id);
+    console.log(authid)
+    console.log("hello")
+//  axios.get(`/electro/${authid}/cartqty`);
+}
+
+
+function decrquantity(id,authid,price){
+  const quantity=parseInt(document.getElementById(id).innerHTML)
+  const totalprice=parseInt(document.getElementById('total').innerHTML);
+  console.log(authid)
+ const disablebutton=document.getElementById('decrP')
+  
+  axios.post('/decrquantity',{
+    ProductId: id,
+    userId: authid,
+    quantity:quantity,
+    totalprice:totalprice,
+    price:parseInt(price)
+
+    
+
+  },{
+    headers:{
+      'Content-Type':'application/json'
+    }})
+    .then(function (response) {
+
+    console.log(response);
+    console.log(response.data.quantity)
+    if(response.data.quantity>1){
+      document.getElementById(id).innerHTML=response.data.quantity-=1
+      document.getElementById('total').innerHTML=response.data.totalprice-=response.data.price
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+ 
+}
+
+
+function deletefromcart(authorid,itemid,price){
+ axios.post('/electro/delete/cart',{
+  authorid:authorid,
+  itemid:itemid,
+  price:price
+ },{
+  Headers:{
+    'Content-Type':'application/json'
+  }
+ }).then(function(response){
+  console.log(response)
+  const authid=response.data.authorid.toString()
+  location.href=`/electro/cart/${authid}`
+ 
+ }).catch(function(err){
+  console.log(err)
+ })
+}
+
+
+</script>

@@ -1,0 +1,46 @@
+<% layout('layout/boilerplate.ejs') %> 
+
+
+
+
+<link rel="stylesheet" href="/stylesheets/category.css">
+<div class="container  mt-2">
+    <div class="row">
+<% manyproducts.forEach((items,i)=>{%>
+    <div class="col-lg-3" id="viewcontainer" style="margin: 5px 36.166px 0px 36.166px;">
+
+    <div class="card" style="width: 18rem;  " >
+        <img class="card-img-top" src="<%=items.img[0].url%> " alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><%= items.name %> </h5>
+          <!-- <p class="card-text"><%= items.description %> </p> -->
+          <h4 class="card-text"><%= items.price %> </h4>
+          <form action="/electro/<%= items._id %>/delete?_method=Delete"  id="addcart" method="post">
+          <a href="/electro/<%= items._id %> " class="btn btn-primary">VIEW</a>
+          <a  onclick="addtocart('<%=items._id%>')" class="btn btn-info">Add To Cart</a>
+          <!-- <a href="/electro/<%= items._id %>/edit " class="btn btn-light">Edit Product</a> -->
+        <!-- <button class="btn btn-danger">Delete Product</button> -->
+         
+        </form>
+        </div> 
+      </div>
+    </div>
+<%}) %>  
+ 
+</div>
+
+</div>
+<script>
+function addtocart(id){
+ 
+axios.get(`/electro/${id}/addcart`,).then(function(response){
+  console.log(response)
+  
+}).catch(function(e){
+  console.log(e)
+})
+
+
+}
+</script>
+

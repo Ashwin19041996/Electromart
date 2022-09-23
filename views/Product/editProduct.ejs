@@ -1,0 +1,28 @@
+<% layout('layout/boilerplate.ejs') %> 
+
+<div class="col-md-6 offset-3">
+
+
+    <h1>Edit Product</h1>    
+        <form action="/electro/<%=items._id%>?_method=PUT " method="POST" enctype="multipart/form-data" novalidate class="validate-form">
+     <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input class="form-control"  name="name" value="<%=items.name%> "  type="text" id="Name" required>
+      </div>
+     <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input class="form-control"  name="img" value="<%=items.img[0].url%> " type="file" id="Image" multiple > 
+      </div>
+      <div class="mb-3">
+        <label for="Price" class="form-label">Price</label>
+        <input class="form-control" name="price" value="<%=items.price%> " type="text"  id="Price" required >
+      </div>
+      <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <input class="form-control form-control-sm" name="description" value="<%=items.description%> "  id="Description" type="text" required>
+      </div>
+
+      <button class="btn btn-success">Update</button>
+     
+      </form>
+    </div> 

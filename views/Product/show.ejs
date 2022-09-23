@@ -1,0 +1,33 @@
+<% layout('layout/boilerplate.ejs') %>
+ 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+               <% item.img.forEach((img,i)=>{%>
+                <img src="<%= img.url %> " alt="">
+           <% }) %> 
+            </div>
+        </div>
+        <div class="col-6" >
+            <div class="card-body " >
+                <h1 class="card-title"><%= item.name %> </h1>
+                <p class="card-text"><%= item.description %> </p>
+                <h3 class="card-title" style="color:#780000 ;">Price:<%= item.price %> </h3>
+                <form action="">
+            
+                <a href="/placeorder"><button class="btn btn-success">Buy </button></a>
+                <a href=""><button class="btn btn-primary">Add To Cart</button></a>
+               
+               
+            </form>
+
+                
+            </div>
+
+        
+        </div>
+    </div>
+
+</div>
+

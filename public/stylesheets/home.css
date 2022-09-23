@@ -1,0 +1,97 @@
+
+
+
+
+
+
+
+.carousel-inner{
+   
+    width: 100%;
+    height: 400px;
+}
+
+img{
+    width: 100%;
+    height: 400px;
+}
+
+.form-control{
+    width:500px
+} 
+
+.d-flex{
+    margin-right: 200px;
+}
+
+ .col-md-3{
+    width: 25%;
+    height: 25%;
+   
+  
+} 
+
+
+
+/* body{
+    background-color: #CFDDD9;
+} */
+
+#newcard{
+    width: 20%;
+    margin: 2.5%;
+
+}
+
+#firstimage img{
+  /* padding-bottom: 30px; */
+ 
+
+ 
+
+    
+}
+
+@media (max-width:900px){
+   #newcontainer{
+    margin-top: 5px;
+   }
+}
+
+
+
+@media (min-width:900px){
+    #newcontainer{
+        padding: 0%;
+        width: 23%;
+        
+        margin: 1%;
+       
+       
+       
+        
+    }
+}
+
+/* .container{
+    background-color: aqua;
+    width: 100%;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<form action="" id="form">
+<label for="address">address</label><br>
+<input type="text" name="address" id="address">
+
+<label for="pincode">pincode</label><br>
+<input type="text" name="pincode" id="pincode">
+
+<button type="submit">submit</button>
+</form>
+
+<script>
+
+    const form=document.getElementById('form');
+    form.addEventListener('submit',(e)=>{
+e.preventDefault();
+const formdata=new FormData(form);
+console.log(...formdata)
+axios.post('test',formdata
+).then(function(response){
+    console.log(response)
+}).catch((err)=>{
+console.log(err)
+})
+    })
+</script>

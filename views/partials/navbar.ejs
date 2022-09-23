@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="/stylesheets/navbar.css">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand"> ElectroMart</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active mx-4" aria-current="page" href="/electro">Home</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link  mx-4 " aria-current="page" href="/orders">Orders</a>
+        </li>
+        <% if(currentUser){ %>
+          <li class="nav-item">
+            <a class="nav-link  mx-4 " aria-current="page" href="/electro/cart/<%=currentUser._id%>">Cart  <span style="position:absolute; ; "></span></a>
+          </li>
+          <% } %>
+           
+
+
+
+      </ul>
+      <form class="d-flex my-2" id="searchform">
+        <input class="form-control me-2" type="search" placeholder="Search" id="inputvalue" onkeyup="searchitems()" aria-label="Search">
+        <!-- <section id="searchresults" style="color:white ;"></section> -->
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <ul class="navbar-nav">
+        <div class="navbar-nav mx-4 " style="margin-right: 12px">
+          <% if(!currentUser){ %>
+            <a class="nav-link" href="/signin" aria-current="page">SignIn</a>
+            <a class="nav-link" href="/login" aria-current="page">LogIn</a>
+            <% } else { %>
+              <!-- Example single danger button -->
+              <div class="navbar-nav  btn-group">
+                <button type="button" id="drop-btn" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <%= currentUser.username %>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+
+                </ul>
+              </div>
+              <% } %>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function searchitems(){
+    const inputvalue=document.getElementById('inputvalue').value
+    console.log(inputvalue)
+    const searchresults=document.getElementById('searchresults')
+    axios.post('/searchitems',{
+      data:inputvalue
+    },{
+      Headers:{
+        'Content-Type': 'application/json'  
+      }
+    }).then(function(response){
+           searchresults.innerHTML='';
+           if(response.data.length <1){
+            searchresults.innerHTML= "<p>SORRY NO ITEMS FOUND</p>"
+            return;
+           }else{
+            response.data.forEach((items,i) => {
+              if(i>0){
+                searchresults.innerHTML +="<hr>"
+                searchresults.innerHTML +=`<p>${items.name}</p>`
+              }
+            });
+           }
+
+       
+    }).catch(function(err){
+      console.log(err)
+    })
+
+  }
+
+
+  const searchform=document.getElementById('searchform');
+  searchform.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const input=document.getElementById('inputvalue').value;
+    console.log(input)
+   axios.post('/displaysearch',{
+    data:input
+   },{
+    Headers:{
+      'Content-Type': 'application/json' 
+    }
+   }).then(function(response){
+    console.log(response)
+    const data=response.data;
+    if(data.length>=1){
+       location.href=`/electro/${data[0]._id}/view`
+    }
+
+   }).catch(function(err){
+    console.log(err)
+   })
+    })
+ 
+</script>

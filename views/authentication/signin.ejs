@@ -1,0 +1,38 @@
+<% layout('layout/boilerplate.ejs') %>
+
+
+<div class="container .d-flex justify-content-center align-items-center my-auto">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4 mt-5">
+      <h2>SignIn</h2>
+      <form action="/signin" method="post" class="validate-form" novalidate>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input class="form-control" name="username" type="text" id="username" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input class="form-control" name="email" type="text" id="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input class="form-control" type="password" name="password" id="password"  required>
+        </div>
+  <button class="btn btn-success">signIn</button>
+    </form>
+       
+    </div>
+  </div>
+  
+  </div>
+
+
+
+
+<!-- <div class="col-6-md offset-3">
+<h1>SignIn</h1>
+<form action="/signin" method="post" class="validate-form" novalidate>
+   
+</form>
+
+</div> -->
