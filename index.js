@@ -457,7 +457,7 @@ app.get('/lecetrocart/id')
 
 
 app.get('/electro/addproduct', (req, res) => {
-    res.render('./product/addproduct.ejs')
+    res.render('./Product/addproduct.ejs')
 })
 
 
