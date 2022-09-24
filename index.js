@@ -38,14 +38,14 @@ const { storage } = require('./CLOUDINARY')
 const upload = multer({ storage })
 
 const Product = require('./models/product.js');
-const { Console } = require('console');
+
 const { isLoggedin } = require('./middleware.js');
 const { publicDecrypt } = require('crypto');
-const { createBrotliDecompress } = require('zlib');
-const { resolve } = require('path');
+
+
 const MongoStore = require("connect-mongo")
 
-const dburl =process.env.DB_URL || 'mongodb://localhost:27017/Electromart'
+const dburl =process.env.DB_URL 
 // ||'mongodb://localhost:27017/Electromart'
 
 mongoose.connect(dburl, { useNewUrlParser: true, useUnifiedTopology: true, })
@@ -67,7 +67,7 @@ app.use(express.json())
 
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
-const store = MongoStore.create({
+const store = new  MongoStore.create({
     mongoUrl: dburl,
     touchAfter: 24 * 60 * 60,
     crypto: {
@@ -81,7 +81,7 @@ store.on("error", function (e) {
 
 const sessionConfig = {
 
-    name: 'session',
+    name: 'electrosession',
     secret: secret,
     resave: false,
     saveUninitialized: true,
