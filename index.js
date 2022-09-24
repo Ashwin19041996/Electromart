@@ -45,7 +45,7 @@ const { publicDecrypt } = require('crypto');
 
 const MongoStore = require("connect-mongo")
 
-const dburl =process.env.DB_URL 
+const dburl =process.env.DB_URL ||'mongodb://localhost:27017/Electromart'
 // ||'mongodb://localhost:27017/Electromart'
 
 mongoose.connect(dburl, { useNewUrlParser: true, useUnifiedTopology: true, })
@@ -67,7 +67,7 @@ app.use(express.json())
 
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!'
-const store = new  MongoStore.create({
+const store =  MongoStore.create({
     mongoUrl: dburl,
     touchAfter: 24 * 60 * 60,
     crypto: {
@@ -80,8 +80,8 @@ store.on("error", function (e) {
 })
 
 const sessionConfig = {
-
-    name: 'electrosession',
+    store,
+    name: 'session',
     secret: secret,
     resave: false,
     saveUninitialized: true,
